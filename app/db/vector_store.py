@@ -76,7 +76,7 @@ async def get_vector_store() -> PGVector | None:
             # "cannot insert multiple commands into a prepared statement" error.
             err_text = str(e)
             if "cannot insert multiple commands into a prepared statement" in err_text:
-                engine = create_async_engine(settings.ASYNC_DATABASE_URL)
+                engine = create_async_engine(settings.ASYNC_DATABASE_URL, pool_pre_ping=True)
                 async with engine.begin() as conn:
                     # Run the extension creation as a single command
                     await conn.exec_driver_sql("CREATE EXTENSION IF NOT EXISTS vector;")

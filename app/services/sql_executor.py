@@ -27,7 +27,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 
 from app.config import settings
 
-_engine = create_async_engine(settings.ASYNC_DATABASE_URL)
+_engine = create_async_engine(settings.ASYNC_DATABASE_URL, pool_pre_ping=True)
 
 # Cheap check for an existing LIMIT clause. Not bulletproof (e.g. won't
 # catch "LIMIT" inside a string literal) but sql_generator.py already

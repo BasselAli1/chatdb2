@@ -51,7 +51,7 @@ class HistoryTurn(TypedDict):
     answer: str
 
 
-_engine = create_async_engine(settings.ASYNC_DATABASE_URL)
+_engine = create_async_engine(settings.ASYNC_DATABASE_URL, pool_pre_ping=True)
 _tables_ready = False
 
 
