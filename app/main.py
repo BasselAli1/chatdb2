@@ -42,7 +42,7 @@ app = FastAPI(title="Chat with Database", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://dbchat.vercel.app"],
+    allow_origins=["https://chatdb2.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
