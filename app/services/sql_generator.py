@@ -93,8 +93,7 @@ Rules:
 - If the question can't be answered from the given schema context, \
 leave `sql` null and explain why in `answer`.
 - `sql` is for the sql query itself; `answer` is a natural language explanation of what the query does.
-- If the question is a greeting or otherwise doesn't need SQL, leave `sql` null and
-- Keep `answer` concise and non-technical where possible.
+- If the question is a greeting or otherwise doesn't need SQL, leave `sql` null and Keep `answer` concise and non-technical where possible.
 
 Schema context:
 {schema_context}
@@ -192,19 +191,18 @@ async def generate_sql(
         produced SQL that fails basic safety checks, `sql` is set to
         None and `answer` explains that the query was rejected.
     """
-    try:
-        result: SQLGeneration = await _chain.ainvoke(
+    result: SQLGeneration = await _chain.ainvoke(
             {
                 "schema_context": schema_context or "(no relevant tables found)",
                 "history": _history_to_messages(history),
                 "question": question,
             }
         )
-    except Exception:
+    if not result.sql:
         return SQLGenerationResult(
             sql=None,
             answer=(
-                Exception 
+                result.answer
             ),
         )
 
