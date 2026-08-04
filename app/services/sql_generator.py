@@ -205,7 +205,7 @@ async def generate_sql(
             sql=None,
             answer=(
                 "I'm having trouble contacting Ollama right now. "
-                "Please make sure Ollama is running and that the model is installed."
+                "Please make sure Ollama is running and that the model is installed.",Exception 
             ),
         )
 
