@@ -1,0 +1,22 @@
+[
+  {
+    "table": "customers",
+    "description": "customers: stores customer accounts. Columns: id (PK), name, email, state, signup_date."
+  },
+  {
+    "table": "orders",
+    "description": "orders: one row per customer order. Columns: id (PK), customer_id (FK -> customers.id), status (one of: pending, shipped, delivered, cancelled), total, created_at."
+  },
+  {
+    "table": "products",
+    "description": "products: product catalog. Columns: id (PK), name, category, price."
+  },
+  {
+    "table": "order_items",
+    "description": "order_items: line items linking orders to products. Columns: id (PK), order_id (FK -> orders.id), product_id (FK -> products.id), quantity, unit_price."
+  },
+  {
+    "table": "reviews",
+    "description": "reviews: customer product reviews. Columns: id (PK), product_id (FK -> products.id), customer_id (FK -> customers.id), rating (1-5), comment, created_at."
+  }
+]
