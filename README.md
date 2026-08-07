@@ -31,8 +31,9 @@ questions have context.
 
 - FastAPI + SQLAlchemy (async) + asyncpg
 - LangChain + langchain-postgres (PGVector) for retrieval
-- OpenRouter or a local/hosted Ollama model (via LangChain's
-  OpenAI-compatible and Ollama clients) for generation and embeddings
+- NVIDIA AI Endpoints (`MODE=online`, the default) or a local/hosted
+  Ollama model (`MODE=offline`) — via LangChain's NVIDIA and Ollama
+  clients — for generation and embeddings
 - Postgres with the pgvector extension
 - uv for Python dependency management
 - React (Vite) frontend
@@ -108,9 +109,9 @@ Settings are read from a `.env` file at the project root (see
 | Variable | Description |
 | --- | --- |
 | `DATABASE_URL` | Postgres connection string, used for both chat history and the pgvector store. Accepts a standard `postgresql://` URL; it's normalized to the `asyncpg` driver automatically. |
-| `MODE` | Runtime mode; `online` uses OpenRouter for generation, otherwise Ollama is used. |
-| `OPENROUTER_API_KEY`, `OPENROUTER_CHAT_MODEL`, `OPENROUTER_EMBEDDING_MODEL` | OpenRouter credentials/model names (get a key at [openrouter.ai/keys](https://openrouter.ai/keys)). |
-| `OLLAMA_API_KEY`, `OLLAMA_CHAT_MODEL`, `OLLAMA_EMBEDDING_MODEL`, `OLLAMA_BASE_URL` | Ollama configuration for local/hosted chat and embedding models. |
+| `MODE` | Runtime mode; `online` (the default) uses NVIDIA AI Endpoints for generation, `offline` uses Ollama. |
+| `OPENROUTER_API_KEY`, `OPENROUTER_CHAT_MODEL`, `OPENROUTER_EMBEDDING_MODEL`, `OPENROUTER_BASE_URL` | Despite the name, these configure the **NVIDIA AI Endpoints** client used in `online` mode (an OpenAI-compatible API) — get a key at [build.nvidia.com](https://build.nvidia.com). |
+| `OLLAMA_API_KEY`, `OLLAMA_CHAT_MODEL`, `OLLAMA_EMBEDDING_MODEL`, `OLLAMA_BASE_URL` | Ollama configuration for local/hosted chat and embedding models, used in `offline` mode. |
 | `SQL_MAX_ROWS` | Max rows returned per query (default `200`). |
 | `SQL_STATEMENT_TIMEOUT_MS` | Postgres statement timeout in ms for generated queries (default `5000`). |
 | `VITE_API_URL` | Frontend-only: base URL of the API. |
